@@ -20,7 +20,7 @@ $(document).ready(function(){
 	{
 		cw = 10;
 		speed = $("#difficulty").val();
-		snake_color = 'green';
+		snake_color = $("#snake-color").val();
 		
 		if (parseInt(w/cw/2)*2*cw != w)
 			throw "ERROR: Width must be an even number when divised by the cell width.";
