@@ -19,7 +19,7 @@ $(document).ready(function(){
 	function startup()
 	{
 		cw = 10;
-		speed = 85;
+		speed = $("#difficulty").val();
 		snake_color = 'green';
 		
 		if (parseInt(w/cw/2)*2*cw != w)
