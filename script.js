@@ -12,6 +12,8 @@ $(document).ready(function(){
 	var score;
 	var speed;
 	var snake_color;
+	var game_loop;
+	var paused;
 	
 	//Lets create the snake now
 	var snake_array; //an array of cells to make up the snake
@@ -155,10 +157,23 @@ $(document).ready(function(){
 	$(document).keydown(function(e){
 		var key = e.which;
 		//We will add another clause to prevent reverse gear
-		if(key == "37" && d != "right") d = "left"; // 65 = a key
-		else if(key == "38" && d != "down") d = "up"; // 
+		if(key == "37" && d != "right") d = "left";
+		else if(key == "38" && d != "down") d = "up";
 		else if(key == "39" && d != "left") d = "right";
 		else if(key == "40" && d != "up") d = "down";
+		else if(key == "80")
+		{
+			if (paused)
+			{
+				paused = false;
+				game_loop = setInterval(paint, speed);
+			}
+			else
+			{
+				paused = true;
+				if(typeof game_loop != "undefined") clearInterval(game_loop);
+			}
+		}
 		//The snake is now keyboard controllable
 		$("#canvas").focus();
 	});
