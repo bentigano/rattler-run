@@ -121,7 +121,14 @@ $(document).ready(function(){
 		{
 			var c = snake_array[i];
 			//Lets paint 10px wide cells
-			paint_cell(c.x, c.y, snake_color);
+			if (i == 0)
+			{
+				paint_cell(c.x, c.y, "black");
+			}
+			else
+			{
+				paint_cell(c.x, c.y, snake_color);
+			}
 		}
 		
 		//Lets paint the food
