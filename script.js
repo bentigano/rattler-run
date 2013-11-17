@@ -160,6 +160,20 @@ $(document).ready(function(){
 		return false;
 	}
 	
+	function toggle_pause()
+	{
+		if (paused)
+		{
+			paused = false;
+			game_loop = setInterval(paint, speed);
+		}
+		else
+		{
+			paused = true;
+			if(typeof game_loop != "undefined") clearInterval(game_loop);
+		}
+	}
+	
 	//Lets add the keyboard controls now
 	$(document).keydown(function(e){
 		var key = e.which;
@@ -168,19 +182,7 @@ $(document).ready(function(){
 		else if(key == "38" && d != "down") d = "up";
 		else if(key == "39" && d != "left") d = "right";
 		else if(key == "40" && d != "up") d = "down";
-		else if(key == "80")
-		{
-			if (paused)
-			{
-				paused = false;
-				game_loop = setInterval(paint, speed);
-			}
-			else
-			{
-				paused = true;
-				if(typeof game_loop != "undefined") clearInterval(game_loop);
-			}
-		}
+		else if(key == "80") toggle_pause();
 		//The snake is now keyboard controllable
 		$("#canvas").focus();
 	});
