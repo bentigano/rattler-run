@@ -54,12 +54,30 @@ $(document).ready(function(){
 	//Lets create the food now
 	function create_food()
 	{
-		food = {
-			x: Math.round(Math.random()*(w-cw)/cw), 
-			y: Math.round(Math.random()*(h-cw)/cw), 
-		};
-		//This will create a cell with x/y between 0-44
-		//Because there are 45(450/10) positions accross the rows and columns
+		do
+		{
+			food = {
+				x: Math.round(Math.random()*(w-cw)/cw), 
+				y: Math.round(Math.random()*(h-cw)/cw), 
+			};
+			//This will create a cell with x/y between 0-44
+			//Because there are 45(450/10) positions accross the rows and columns
+		}
+		while (food_overlaps_snake());
+	}
+	
+	//Checks to ensure that the food doesn't get created in a block occupied by the snake
+	function food_overlaps_snake()
+	{
+		for(var i = 0; i < snake_array.length; i++)
+		{
+			var c = snake_array[i];
+			if (c.x == food.x && c.y == food.y)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	//Lets paint the snake now
@@ -124,6 +142,7 @@ $(document).ready(function(){
 			if (i == 0)
 			{
 				paint_cell(c.x, c.y, "black");
+				paint_head(c.x, c.y);
 			}
 			else
 			{
@@ -146,6 +165,30 @@ $(document).ready(function(){
 		ctx.fillRect(x*cw, y*cw, cw, cw);
 		ctx.strokeStyle = "white";
 		ctx.strokeRect(x*cw, y*cw, cw, cw);
+	}
+	
+	function paint_head(x, y)
+	{
+		ctx.fillStyle = "yellow";
+		switch (d)
+		{
+			case "up":
+				ctx.fillRect(x*cw + 2, y*cw + 2, 2, 2);
+				ctx.fillRect(x*cw + cw - 4, y*cw + 2, 2, 2);
+			break;
+			case "down":
+				ctx.fillRect(x*cw + 2, y*cw + cw - 4, 2, 2);
+				ctx.fillRect(x*cw + cw - 4, y*cw + cw - 4, 2, 2);
+			break;
+			case "left":
+				ctx.fillRect(x*cw + 2, y*cw + 2, 2, 2);
+				ctx.fillRect(x*cw + 2, y*cw + cw - 4, 2, 2);
+			break;
+			case "right":
+				ctx.fillRect(x*cw + cw - 4, y*cw + 2, 2, 2);
+				ctx.fillRect(x*cw + cw - 4, y*cw + cw - 4, 2, 2);
+			break;
+		}
 	}
 	
 	function check_collision(x, y, array)
