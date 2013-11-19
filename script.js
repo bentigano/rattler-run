@@ -151,7 +151,11 @@ $(document).ready(function(){
 		}
 		
 		//Lets paint the food
-		paint_cell(food.x, food.y, "red");
+		var imageObj = new Image();
+		imageObj.onload = function() {
+			ctx.drawImage(imageObj, food.x*cw, food.y*cw);
+		};
+		imageObj.src = 'apple.gif';
 		//Lets paint the score
 		var score_text = "Points: " + score;
 		document.title = 'Rattler Run - ' + score_text;
