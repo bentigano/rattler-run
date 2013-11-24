@@ -14,6 +14,7 @@ $(document).ready(function(){
 	var snake_color;
 	var game_loop;
 	var paused;
+	var imageObj;
 	
 	//Lets create the snake now
 	var snake_array; //an array of cells to make up the snake
@@ -33,6 +34,9 @@ $(document).ready(function(){
 		create_food(); //Now we can see the food particle
 		//finally lets display the score
 		score = 0;
+		
+		imageObj = new Image();
+		imageObj.src = 'apple.gif';
 		
 		//Lets move the snake now using a timer which will trigger the paint function
 		if(typeof game_loop != "undefined") clearInterval(game_loop);
@@ -151,11 +155,7 @@ $(document).ready(function(){
 		}
 		
 		//Lets paint the food
-		var imageObj = new Image();
-		imageObj.onload = function() {
-			ctx.drawImage(imageObj, food.x*cw, food.y*cw);
-		};
-		imageObj.src = 'apple.gif';
+        ctx.drawImage(imageObj, food.x*cw, food.y*cw);
 		//Lets paint the score
 		var score_text = "Points: " + score;
 		document.title = 'Rattler Run - ' + score_text;
